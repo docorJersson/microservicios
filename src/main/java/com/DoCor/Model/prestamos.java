@@ -1,5 +1,6 @@
 package com.DoCor.Model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,7 +32,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity(name = "prestamos")
 @Table(name = "prestamos",uniqueConstraints = {@UniqueConstraint(columnNames = "dni")})
-public class prestamos {
+public class prestamos{
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idprestamo"	)
@@ -51,8 +61,18 @@ public class prestamos {
 	@Column(name = "estadosolicitud",columnDefinition = "ENUM")
 	private String estadoSolicitud;
 	
-	@OneToOne(mappedBy = "prestamos",cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@OneToOne(mappedBy = "prestamos",cascade = CascadeType.ALL,targetEntity = solicitud.class)
 	private solicitud solicitud;
+
+	public prestamos(String dni, String nombre, String apellidos) {
+		super();
+		this.dni = dni;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+	}
+	
+	
 	
 	
 

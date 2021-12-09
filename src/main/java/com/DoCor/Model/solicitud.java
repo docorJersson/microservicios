@@ -1,10 +1,10 @@
 package com.DoCor.Model;
 
 import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,8 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,7 +29,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
+
 public class solicitud {
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idsolicitud")
@@ -39,9 +44,16 @@ public class solicitud {
 	@Column
 	private Date fecha;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,targetEntity = prestamos.class)
 	@JoinColumn(name="idprestamo")
-	@JsonBackReference
 	private prestamos prestamos;
+
+	public solicitud(String estado, String dni,String nombre,String apellido) {
+		this.estado = estado;
+		this.prestamos = new prestamos(dni, nombre, apellido);
+	}
+	
+	
 	
 }
