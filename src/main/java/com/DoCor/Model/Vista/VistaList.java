@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.Immutable;
 
@@ -17,9 +18,11 @@ import lombok.Setter;
 @Immutable
 @Getter
 @Setter
+@XmlRootElement
 public class VistaList {
 	@Id
 	@Column(name = "idsolicitud", updatable = false, nullable = false)
+	
 	private Integer idSolicitud;
 
 	@Column(columnDefinition = "CHAR")
