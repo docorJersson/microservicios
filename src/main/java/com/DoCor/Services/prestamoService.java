@@ -14,8 +14,8 @@ public class prestamoService {
 	@Autowired
 	private prestamosRepository prestamosRepository;
 
-	@Transactional
-	public prestamos save(prestamos prestamos) {
+	@Transactional(rollbackOn = {Exception.class})
+	public prestamos save(prestamos prestamos) throws Exception{
 		return prestamosRepository.save(prestamos);
 	}
 

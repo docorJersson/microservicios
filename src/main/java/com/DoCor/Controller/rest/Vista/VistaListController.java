@@ -18,7 +18,7 @@ public class VistaListController {
 	@Autowired
 	private VistaListService service;
 
-	@GetMapping(produces = {MediaType.APPLICATION_ATOM_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
+	@GetMapping(produces = {MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 	public List<VistaList> list() {
 		return service.list();
 	}

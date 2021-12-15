@@ -14,7 +14,10 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,11 +29,10 @@ import lombok.ToString;
 @Entity(name = "solicitud")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
-
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
+@JsonInclude(Include.NON_NULL)
 public class solicitud {
 
 

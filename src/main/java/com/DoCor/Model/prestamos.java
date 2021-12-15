@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -32,6 +34,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity(name = "prestamos")
 @Table(name = "prestamos",uniqueConstraints = {@UniqueConstraint(columnNames = "dni")})
+@JsonInclude(value = Include.NON_DEFAULT)
 public class prestamos{
 
 
@@ -58,7 +61,7 @@ public class prestamos{
 	private String periodo;
 	@Column(name = "cantidadperiodo")
 	private Integer cantidadPeriodo;
-	@Column(name = "estadosolicitud",columnDefinition = "ENUM")
+	@Column(name = "estadosolicitud",columnDefinition = "ENUM",insertable = false)
 	private String estadoSolicitud;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -71,6 +74,23 @@ public class prestamos{
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 	}
+
+	public prestamos(Integer idPrestamo, String dni, String nombre, String apellidos, String phone, String email,
+			float monto, Date fPrestamo, String periodo, Integer cantidadPeriodo) {
+		super();
+		this.idPrestamo = idPrestamo;
+		this.dni = dni;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.phone = phone;
+		this.email = email;
+		this.monto = monto;
+		this.fPrestamo = fPrestamo;
+		this.periodo = periodo;
+		this.cantidadPeriodo = cantidadPeriodo;
+	}
+	
+	
 	
 	
 	
