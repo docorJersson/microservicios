@@ -28,6 +28,11 @@ public class solicitudController {
 		return new ResponseEntity<solicitud>(impl.consulta(dni.getDni()), HttpStatus.OK);
 
 	}
+	@GetMapping("/detail/{dni}")
+	public ResponseEntity<solicitud> getConsultaGet(@PathVariable paramDNI dni) {
+		return new ResponseEntity<solicitud>(impl.consulta(dni.getDni()), HttpStatus.OK);
+
+	}
 	
 	@GetMapping("{id}")
 	public ResponseEntity<solicitud> getById(@PathVariable Integer id) {
